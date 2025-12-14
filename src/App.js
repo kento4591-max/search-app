@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MenuScreen from "./MenuScreen";
+import SearchForm from "./components/SearchForm";
+import SearchResult from "./components/SearchResult";
 
 function App() {
+  const [results, setResults] = useState([]);
+
+  const handleSearch = (query) => {
+    const params = new URLSearchParams({
+      name: query.name,
+      dob: query.dob,
+      affiliation: query.affiliation,
+    }).toString();
+
+    fetch(`http://localhost:8080/api/search?${params}`)
+      .then((response) => {
+        console.log("status:", response.status);
+        if (!response.ok) {
+          throw new Error("API呼び出しに失敗しました");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("API結果:", data);
+        setResults(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching search results:", error);
+        alert("検索に失敗しました");
+      });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* 起動時は MenuScreen を表示 */}
+        <Route path="/" element={<MenuScreen />} />
+
+        {/* 検索画面 */}
+        <Route path="/search" element={<SearchForm onSearch={handleSearch} />} />
+
+        {/* 検索結果画面 */}
+        <Route path="/result" element={<SearchResult data={results} />} />
+      </Routes>
+    </Router>
   );
 }
 
