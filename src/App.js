@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MenuScreen from "./MenuScreen";
 import SearchForm from "./components/SearchForm";
 import SearchResult from "./components/SearchResult";
+import "./common.css";
+
 
 function App() {
   const [results, setResults] = useState([]);
