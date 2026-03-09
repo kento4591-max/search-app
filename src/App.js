@@ -16,7 +16,7 @@ function App() {
       affiliation: query.affiliation,
     }).toString();
 
-    fetch(`http://localhost:8080/api/search?${params}`)
+    fetch(`https://search-api-whna.onrender.com/api/search?${params}`)
       .then((response) => {
         console.log("status:", response.status);
         if (!response.ok) {
