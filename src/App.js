@@ -7,7 +7,7 @@ import "./common.css";
 
 
 function App() {
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([]); //「このコンポーネントは results という状態を持ちます。setResults が呼ばれたら UI を描き直します」
 
   const handleSearch = (query) => {
     const params = new URLSearchParams({
@@ -22,9 +22,9 @@ function App() {
         if (!response.ok) {
           throw new Error("API呼び出しに失敗しました");
         }
-        return response.json();
+        return response.json(); //jsonで帰ってきた結果を、jsオブジェクトに変換
       })
-      .then((data) => {
+      .then((data) => { //dataには検索結果のjsオブジェクト
         console.log("API結果:", data);
         setResults(data);
       })
