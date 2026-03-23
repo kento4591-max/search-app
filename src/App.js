@@ -4,9 +4,11 @@ import MenuScreen from "./MenuScreen";
 import SearchForm from "./components/SearchForm";
 import SearchResult from "./components/SearchResult";
 import "./common.css";
+import { useNavigate } from "react-router-dom";
 
 
 function App() {
+  const navigate = useNavigate();
   const [results, setResults] = useState([]); //「このコンポーネントは results という状態を持ちます。setResults が呼ばれたら UI を描き直します」
 
   const handleSearch = (query) => {
