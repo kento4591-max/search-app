@@ -27,6 +27,7 @@ function App() {
       .then((data) => { //dataには検索結果のjsオブジェクト
         console.log("API結果:", data);
         setResults(data);
+        navigate("/result");
       })
       .catch((error) => {
         console.error("Error fetching search results:", error);
